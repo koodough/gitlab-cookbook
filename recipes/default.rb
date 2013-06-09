@@ -207,16 +207,17 @@ execute "migrations" do
   cwd node['gitlab']['path']
 end
 
-service "gitlab" do
-  supports :restart => true, :start => true, :stop => true, :status => true
-  action :nothing
-end
 
 template "/etc/init.d/gitlab" do
   source "init_gitlab.erb"
   mode 0744
   notifies :enable, "service[gitlab]"
   notifies :start, "service[gitlab]"
+end
+
+service "gitlab" do
+  supports :restart => true, :start => true, :stop => true, :status => true
+  action :nothing
 end
 
 template "/etc/nginx/sites-available/gitlab" do
