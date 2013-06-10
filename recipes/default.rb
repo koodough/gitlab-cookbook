@@ -139,7 +139,7 @@ bash "git config" do
   environment('HOME' => node['gitlab']['home'])
 end
 
-if platform?("ubuntu")
+if platform?("ubuntu", "debian")
   # Install gems
   gem_package "bundler"
   gem_package 'charlock_holmes' do
